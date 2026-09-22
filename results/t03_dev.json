@@ -1,0 +1,1154 @@
+{
+  "haiti_sms": {
+    "n": 1000,
+    "views": {
+      "orig_router": {
+        "n": 1000,
+        "routed_to": {
+          "english": 861,
+          "multilingual": 139
+        },
+        "variants": {
+          "noul_short": {
+            "mean_auc": 0.6360077481333715,
+            "macro_f1@0.5": 0.1766891479709647,
+            "per_label": {
+              "rescue": {
+                "auc": 0.610893470790378,
+                "f1@0.5": 0.11214953271028037
+              },
+              "medical": {
+                "auc": 0.6879755434782608,
+                "f1@0.5": 0.31137724550898205
+              },
+              "water_food": {
+                "auc": 0.6738870317606324,
+                "f1@0.5": 0.22608695652173913
+              },
+              "shelter": {
+                "auc": 0.5712749465042142,
+                "f1@0.5": 0.05714285714285714
+              }
+            }
+          },
+          "noul_described": {
+            "mean_auc": 0.6655144183478713,
+            "macro_f1@0.5": 0.19185185542726957,
+            "per_label": {
+              "rescue": {
+                "auc": 0.6514604810996564,
+                "f1@0.5": 0.15
+              },
+              "medical": {
+                "auc": 0.6790489130434783,
+                "f1@0.5": 0.27586206896551724
+              },
+              "water_food": {
+                "auc": 0.6625834772919331,
+                "f1@0.5": 0.22807017543859648
+              },
+              "shelter": {
+                "auc": 0.6689648019564173,
+                "f1@0.5": 0.11347517730496454
+              }
+            }
+          },
+          "choice_described": {
+            "mean_auc": 0.6588691801370924,
+            "macro_f1@0.5": 0.11243537996025102,
+            "per_label": {
+              "rescue": {
+                "auc": 0.6294329896907217,
+                "f1@0.5": 0.2028985507246377
+              },
+              "medical": {
+                "auc": 0.6736480978260869,
+                "f1@0.5": 0.06521739130434782
+              },
+              "water_food": {
+                "auc": 0.6829022053709645,
+                "f1@0.5": 0.14772727272727273
+              },
+              "shelter": {
+                "auc": 0.6494934276605965,
+                "f1@0.5": 0.03389830508474576
+              }
+            }
+          }
+        },
+        "urgency_auc": {
+          "urgency_plain": 0.6107968686365899,
+          "urgency_concrete": 0.6143547219331191
+        },
+        "urgent_rate": 0.098
+      },
+      "orig_multilingual": {
+        "n": 1000,
+        "routed_to": {
+          "multilingual": 1000
+        },
+        "variants": {
+          "noul_short": {
+            "mean_auc": 0.691830651021014,
+            "macro_f1@0.5": 0.27015222520810117,
+            "per_label": {
+              "rescue": {
+                "auc": 0.6276116838487973,
+                "f1@0.5": 0.06363636363636363
+              },
+              "medical": {
+                "auc": 0.72875,
+                "f1@0.5": 0.3157894736842105
+              },
+              "water_food": {
+                "auc": 0.7383169183137774,
+                "f1@0.5": 0.4409090909090909
+              },
+              "shelter": {
+                "auc": 0.6726440019214813,
+                "f1@0.5": 0.2602739726027397
+              }
+            }
+          },
+          "noul_described": {
+            "mean_auc": 0.7029830381311291,
+            "macro_f1@0.5": 0.2730451274608673,
+            "per_label": {
+              "rescue": {
+                "auc": 0.658487972508591,
+                "f1@0.5": 0.09016393442622951
+              },
+              "medical": {
+                "auc": 0.7317459239130435,
+                "f1@0.5": 0.28771929824561404
+              },
+              "water_food": {
+                "auc": 0.746887128979427,
+                "f1@0.5": 0.43817787418655096
+              },
+              "shelter": {
+                "auc": 0.6748111271234551,
+                "f1@0.5": 0.27611940298507465
+              }
+            }
+          },
+          "choice_described": {
+            "mean_auc": 0.6390817564149773,
+            "macro_f1@0.5": 0.20159485514731199,
+            "per_label": {
+              "rescue": {
+                "auc": 0.6115807560137457,
+                "f1@0.5": 0.09259259259259259
+              },
+              "medical": {
+                "auc": 0.6979347826086957,
+                "f1@0.5": 0.2222222222222222
+              },
+              "water_food": {
+                "auc": 0.688140802728109,
+                "f1@0.5": 0.3187250996015936
+              },
+              "shelter": {
+                "auc": 0.5586706843093585,
+                "f1@0.5": 0.1728395061728395
+              }
+            }
+          }
+        },
+        "urgency_auc": {
+          "urgency_plain": 0.6278677768224806,
+          "urgency_concrete": 0.5993031358885017
+        },
+        "urgent_rate": 0.098
+      },
+      "orig_english": {
+        "n": 1000,
+        "routed_to": {
+          "english": 1000
+        },
+        "variants": {
+          "noul_short": {
+            "mean_auc": 0.6026821476344986,
+            "macro_f1@0.5": 0.16244635433271085,
+            "per_label": {
+              "rescue": {
+                "auc": 0.4986426116838488,
+                "f1@0.5": 0.08163265306122448
+              },
+              "medical": {
+                "auc": 0.6883423913043478,
+                "f1@0.5": 0.32679738562091504
+              },
+              "water_food": {
+                "auc": 0.6698711477052626,
+                "f1@0.5": 0.20657276995305165
+              },
+              "shelter": {
+                "auc": 0.5538724398445347,
+                "f1@0.5": 0.034782608695652174
+              }
+            }
+          },
+          "noul_described": {
+            "mean_auc": 0.6456928779166237,
+            "macro_f1@0.5": 0.18363674750687958,
+            "per_label": {
+              "rescue": {
+                "auc": 0.5588316151202749,
+                "f1@0.5": 0.09836065573770492
+              },
+              "medical": {
+                "auc": 0.6851358695652174,
+                "f1@0.5": 0.296875
+              },
+              "water_food": {
+                "auc": 0.670854553204855,
+                "f1@0.5": 0.22549019607843138
+              },
+              "shelter": {
+                "auc": 0.6679494737761474,
+                "f1@0.5": 0.11382113821138211
+              }
+            }
+          },
+          "choice_described": {
+            "mean_auc": 0.6493959262982436,
+            "macro_f1@0.5": 0.09256918091990687,
+            "per_label": {
+              "rescue": {
+                "auc": 0.5797079037800688,
+                "f1@0.5": 0.125
+              },
+              "medical": {
+                "auc": 0.6983899456521739,
+                "f1@0.5": 0.09195402298850575
+              },
+              "water_food": {
+                "auc": 0.670663854799991,
+                "f1@0.5": 0.11695906432748537
+              },
+              "shelter": {
+                "auc": 0.6488220009607406,
+                "f1@0.5": 0.03636363636363636
+              }
+            }
+          }
+        },
+        "urgency_auc": {
+          "urgency_plain": 0.6356339653377981,
+          "urgency_concrete": 0.6206672247613014
+        },
+        "urgent_rate": 0.098
+      },
+      "en_english": {
+        "n": 1000,
+        "routed_to": {
+          "english": 1000
+        },
+        "variants": {
+          "noul_short": {
+            "mean_auc": 0.8307895485120735,
+            "macro_f1@0.5": 0.44874590153985194,
+            "per_label": {
+              "rescue": {
+                "auc": 0.6826116838487972,
+                "f1@0.5": 0.13756613756613756
+              },
+              "medical": {
+                "auc": 0.7910054347826087,
+                "f1@0.5": 0.4198895027624309
+              },
+              "water_food": {
+                "auc": 0.9492779634906034,
+                "f1@0.5": 0.6863468634686347
+              },
+              "shelter": {
+                "auc": 0.9002631119262849,
+                "f1@0.5": 0.5511811023622047
+              }
+            }
+          },
+          "noul_described": {
+            "mean_auc": 0.8417562973425421,
+            "macro_f1@0.5": 0.44475855686108245,
+            "per_label": {
+              "rescue": {
+                "auc": 0.7385738831615121,
+                "f1@0.5": 0.21818181818181817
+              },
+              "medical": {
+                "auc": 0.7840081521739131,
+                "f1@0.5": 0.37349397590361444
+              },
+              "water_food": {
+                "auc": 0.9487544776733299,
+                "f1@0.5": 0.6234817813765182
+              },
+              "shelter": {
+                "auc": 0.8956886763614131,
+                "f1@0.5": 0.5638766519823789
+              }
+            }
+          },
+          "choice_described": {
+            "mean_auc": 0.8476328822325836,
+            "macro_f1@0.5": 0.4037486689694552,
+            "per_label": {
+              "rescue": {
+                "auc": 0.8161855670103093,
+                "f1@0.5": 0.18518518518518517
+              },
+              "medical": {
+                "auc": 0.747710597826087,
+                "f1@0.5": 0.23008849557522124
+              },
+              "water_food": {
+                "auc": 0.9354392419925366,
+                "f1@0.5": 0.6007905138339921
+              },
+              "shelter": {
+                "auc": 0.8911961221014018,
+                "f1@0.5": 0.5989304812834224
+              }
+            }
+          }
+        },
+        "urgency_auc": {
+          "urgency_plain": 0.7089178243359427,
+          "urgency_concrete": 0.7312039006289878
+        },
+        "urgent_rate": 0.098
+      },
+      "en_typed": {
+        "n": 1000,
+        "routed_to": {
+          "typed-decisions": 1000
+        },
+        "variants": {
+          "noul_short": {
+            "mean_auc": 0.8318903501846684,
+            "macro_f1@0.5": 0.46638857106534454,
+            "per_label": {
+              "rescue": {
+                "auc": 0.6747250859106529,
+                "f1@0.5": 0.14736842105263157
+              },
+              "medical": {
+                "auc": 0.8040896739130434,
+                "f1@0.5": 0.4444444444444444
+              },
+              "water_food": {
+                "auc": 0.955563532482295,
+                "f1@0.5": 0.7302631578947368
+              },
+              "shelter": {
+                "auc": 0.8931831084326827,
+                "f1@0.5": 0.5434782608695652
+              }
+            }
+          },
+          "noul_described": {
+            "mean_auc": 0.8532087021507646,
+            "macro_f1@0.5": 0.4769195495920821,
+            "per_label": {
+              "rescue": {
+                "auc": 0.7613917525773196,
+                "f1@0.5": 0.21311475409836064
+              },
+              "medical": {
+                "auc": 0.7902445652173913,
+                "f1@0.5": 0.4157303370786517
+              },
+              "water_food": {
+                "auc": 0.960749781257712,
+                "f1@0.5": 0.6818181818181818
+              },
+              "shelter": {
+                "auc": 0.9004487095506354,
+                "f1@0.5": 0.5970149253731343
+              }
+            }
+          },
+          "choice_described": {
+            "mean_auc": 0.8579572340536689,
+            "macro_f1@0.5": 0.34826173882777656,
+            "per_label": {
+              "rescue": {
+                "auc": 0.8132474226804124,
+                "f1@0.5": 0.17777777777777778
+              },
+              "medical": {
+                "auc": 0.7833084239130435,
+                "f1@0.5": 0.1981981981981982
+              },
+              "water_food": {
+                "auc": 0.9528601021545181,
+                "f1@0.5": 0.47619047619047616
+              },
+              "shelter": {
+                "auc": 0.8824129874667016,
+                "f1@0.5": 0.5408805031446541
+              }
+            }
+          }
+        },
+        "urgency_auc": {
+          "urgency_plain": 0.7046133309199512,
+          "urgency_concrete": 0.7312604642744016
+        },
+        "urgent_rate": 0.098
+      }
+    },
+    "best": "en_typed/choice_described",
+    "vs_runner_up": {
+      "runner_up": "en_typed/noul_described",
+      "diff": {
+        "value": 0.0047,
+        "lo": -0.0132,
+        "hi": 0.0221
+      }
+    }
+  },
+  "humaid": {
+    "n": 1000,
+    "views": {
+      "router": {
+        "n": 1000,
+        "routed_to": {
+          "english": 1000
+        },
+        "variants": {
+          "choice_names": {
+            "macro_f1": 0.47448507791373906,
+            "accuracy": 0.495
+          },
+          "choice_described": {
+            "macro_f1": 0.39167197757263317,
+            "accuracy": 0.366
+          },
+          "coarse_names": {
+            "macro_f1": 0.5033914756207031,
+            "accuracy": 0.531
+          },
+          "coarse_described": {
+            "macro_f1": 0.566121434956854,
+            "accuracy": 0.566
+          }
+        },
+        "urgency_auc": {
+          "urgency_plain": 0.7614306264632048,
+          "urgency_concrete": 0.7825430852114067
+        },
+        "urgent_rate": 0.121
+      },
+      "typed": {
+        "n": 1000,
+        "routed_to": {
+          "typed-decisions": 1000
+        },
+        "variants": {
+          "choice_names": {
+            "macro_f1": 0.5074805854928398,
+            "accuracy": 0.542
+          },
+          "choice_described": {
+            "macro_f1": 0.49263426776022257,
+            "accuracy": 0.487
+          },
+          "coarse_names": {
+            "macro_f1": 0.5164470751623615,
+            "accuracy": 0.522
+          },
+          "coarse_described": {
+            "macro_f1": 0.5894878615029022,
+            "accuracy": 0.585
+          }
+        },
+        "urgency_auc": {
+          "urgency_plain": 0.8009618367980142,
+          "urgency_concrete": 0.8049154279374571
+        },
+        "urgent_rate": 0.121
+      }
+    },
+    "best": "typed/coarse_described",
+    "vs_runner_up": {
+      "runner_up": "router/coarse_described",
+      "diff": {
+        "value": 0.0234,
+        "lo": 0.0011,
+        "hi": 0.0454
+      }
+    }
+  },
+  "crisisbench_ml": {
+    "n": 1000,
+    "views": {
+      "router": {
+        "n": 1000,
+        "routed_to": {
+          "multilingual": 560,
+          "english": 440
+        },
+        "variants": {
+          "choice_names": {
+            "macro_f1": 0.14424734121677157,
+            "accuracy": 0.115
+          },
+          "choice_described": {
+            "macro_f1": 0.15960057136344113,
+            "accuracy": 0.173
+          },
+          "coarse_names": {
+            "macro_f1": 0.28312182171548506,
+            "accuracy": 0.289
+          },
+          "coarse_described": {
+            "macro_f1": 0.3461602092477138,
+            "accuracy": 0.386
+          }
+        },
+        "urgency_auc": {
+          "urgency_plain": NaN,
+          "urgency_concrete": NaN
+        },
+        "urgent_rate": 0.0
+      },
+      "multilingual": {
+        "n": 1000,
+        "routed_to": {
+          "multilingual": 1000
+        },
+        "variants": {
+          "choice_names": {
+            "macro_f1": 0.12214466820597945,
+            "accuracy": 0.077
+          },
+          "choice_described": {
+            "macro_f1": 0.14291370471473594,
+            "accuracy": 0.117
+          },
+          "coarse_names": {
+            "macro_f1": 0.18158145272062431,
+            "accuracy": 0.167
+          },
+          "coarse_described": {
+            "macro_f1": 0.298577254269518,
+            "accuracy": 0.309
+          }
+        },
+        "urgency_auc": {
+          "urgency_plain": NaN,
+          "urgency_concrete": NaN
+        },
+        "urgent_rate": 0.0
+      }
+    },
+    "best": "router/coarse_described",
+    "vs_runner_up": {
+      "runner_up": "multilingual/coarse_described",
+      "diff": {
+        "value": 0.0476,
+        "lo": 0.0171,
+        "hi": 0.0782
+      }
+    }
+  },
+  "humset": {
+    "n": 1000,
+    "views": {
+      "router": {
+        "n": 1000,
+        "routed_to": {
+          "english": 594,
+          "multilingual": 406
+        },
+        "variants": {
+          "noul_short": {
+            "mean_auc": 0.6644722004466898,
+            "macro_f1@0.5": 0.23475637752887996,
+            "per_label": {
+              "Health": {
+                "auc": 0.7385171207658321,
+                "f1@0.5": 0.48394004282655245
+              },
+              "Protection": {
+                "auc": 0.5583563316837965,
+                "f1@0.5": 0.24786324786324787
+              },
+              "Livelihoods": {
+                "auc": 0.5275087948355275,
+                "f1@0.5": 0.199288256227758
+              },
+              "Food Security": {
+                "auc": 0.6785347057613836,
+                "f1@0.5": 0.3065134099616858
+              },
+              "WASH": {
+                "auc": 0.6167839005312008,
+                "f1@0.5": 0.1797752808988764
+              },
+              "Education": {
+                "auc": 0.6316932624113475,
+                "f1@0.5": 0.15432098765432098
+              },
+              "Shelter": {
+                "auc": 0.7556014895228478,
+                "f1@0.5": 0.3063063063063063
+              },
+              "Nutrition": {
+                "auc": 0.780049786628734,
+                "f1@0.5": 0.29411764705882354
+              },
+              "Agriculture": {
+                "auc": 0.5772964358157056,
+                "f1@0.5": 0.03508771929824561
+              },
+              "Logistics": {
+                "auc": 0.7803801765105227,
+                "f1@0.5": 0.14035087719298245
+              }
+            }
+          },
+          "noul_described": {
+            "mean_auc": 0.6892468605560433,
+            "macro_f1@0.5": 0.26189746334532554,
+            "per_label": {
+              "Health": {
+                "auc": 0.7290218842047128,
+                "f1@0.5": 0.44835164835164837
+              },
+              "Protection": {
+                "auc": 0.558570454257074,
+                "f1@0.5": 0.26506024096385544
+              },
+              "Livelihoods": {
+                "auc": 0.5234831175425235,
+                "f1@0.5": 0.2145922746781116
+              },
+              "Food Security": {
+                "auc": 0.7036237295840504,
+                "f1@0.5": 0.34545454545454546
+              },
+              "WASH": {
+                "auc": 0.849140447142607,
+                "f1@0.5": 0.4121212121212121
+              },
+              "Education": {
+                "auc": 0.7334929078014184,
+                "f1@0.5": 0.2523364485981308
+              },
+              "Shelter": {
+                "auc": 0.7380396364554406,
+                "f1@0.5": 0.3033175355450237
+              },
+              "Nutrition": {
+                "auc": 0.7300990261516578,
+                "f1@0.5": 0.23423423423423423
+              },
+              "Agriculture": {
+                "auc": 0.5415821501014199,
+                "f1@0.5": 0.03636363636363636
+              },
+              "Logistics": {
+                "auc": 0.7854152523195294,
+                "f1@0.5": 0.10714285714285714
+              }
+            }
+          }
+        }
+      },
+      "multilingual": {
+        "n": 1000,
+        "routed_to": {
+          "multilingual": 1000
+        },
+        "variants": {
+          "noul_short": {
+            "mean_auc": 0.6926858147498233,
+            "macro_f1@0.5": 0.04072747509295392,
+            "per_label": {
+              "Health": {
+                "auc": 0.7283085189617083,
+                "f1@0.5": 0.043478260869565216
+              },
+              "Protection": {
+                "auc": 0.6647593896713615,
+                "f1@0.5": 0.059880239520958084
+              },
+              "Livelihoods": {
+                "auc": 0.648998416325149,
+                "f1@0.5": 0.06382978723404255
+              },
+              "Food Security": {
+                "auc": 0.6853481399703434,
+                "f1@0.5": 0.0
+              },
+              "WASH": {
+                "auc": 0.7288614208160644,
+                "f1@0.5": 0.05063291139240506
+              },
+              "Education": {
+                "auc": 0.7706294326241134,
+                "f1@0.5": 0.03278688524590164
+              },
+              "Shelter": {
+                "auc": 0.7159334763948498,
+                "f1@0.5": 0.10666666666666667
+              },
+              "Nutrition": {
+                "auc": 0.7516960280118175,
+                "f1@0.5": 0.05
+              },
+              "Agriculture": {
+                "auc": 0.530099971022892,
+                "f1@0.5": 0.0
+              },
+              "Logistics": {
+                "auc": 0.7022233536999322,
+                "f1@0.5": 0.0
+              }
+            }
+          },
+          "noul_described": {
+            "mean_auc": 0.6589637006601723,
+            "macro_f1@0.5": 0.054919050514007486,
+            "per_label": {
+              "Health": {
+                "auc": 0.7018766108247423,
+                "f1@0.5": 0.058823529411764705
+              },
+              "Protection": {
+                "auc": 0.6418799961933764,
+                "f1@0.5": 0.0759493670886076
+              },
+              "Livelihoods": {
+                "auc": 0.5872169634545872,
+                "f1@0.5": 0.042105263157894736
+              },
+              "Food Security": {
+                "auc": 0.614940849216915,
+                "f1@0.5": 0.0
+              },
+              "WASH": {
+                "auc": 0.7997198061992878,
+                "f1@0.5": 0.0759493670886076
+              },
+              "Education": {
+                "auc": 0.7389184397163121,
+                "f1@0.5": 0.06451612903225806
+              },
+              "Shelter": {
+                "auc": 0.6677291088109063,
+                "f1@0.5": 0.13043478260869565
+              },
+              "Nutrition": {
+                "auc": 0.7191569099463836,
+                "f1@0.5": 0.04878048780487805
+              },
+              "Agriculture": {
+                "auc": 0.452549985511446,
+                "f1@0.5": 0.0
+              },
+              "Logistics": {
+                "auc": 0.6656483367277665,
+                "f1@0.5": 0.05263157894736842
+              }
+            }
+          }
+        }
+      }
+    },
+    "best": "multilingual/noul_short",
+    "vs_runner_up": {
+      "runner_up": "router/noul_described",
+      "diff": {
+        "value": 0.0034,
+        "lo": -0.0257,
+        "hi": 0.0287
+      }
+    }
+  },
+  "decisions": {
+    "haiti: forced multilingual vs router, original text": {
+      "metric": "mean_auc",
+      "a": 0.703,
+      "b": 0.6655,
+      "a_minus_b": {
+        "value": 0.0375,
+        "lo": -0.0016,
+        "hi": 0.0741
+      }
+    },
+    "haiti: English translation (typed) vs original (multilingual)": {
+      "metric": "mean_auc",
+      "a": 0.8532,
+      "b": 0.703,
+      "a_minus_b": {
+        "value": 0.1502,
+        "lo": 0.1157,
+        "hi": 0.1888
+      }
+    },
+    "haiti: typed vs english checkpoint, translation": {
+      "metric": "mean_auc",
+      "a": 0.8532,
+      "b": 0.8418,
+      "a_minus_b": {
+        "value": 0.0115,
+        "lo": 0.004,
+        "hi": 0.0201
+      }
+    },
+    "haiti: one noul per need vs one choice": {
+      "metric": "mean_auc",
+      "a": 0.8532,
+      "b": 0.858,
+      "a_minus_b": {
+        "value": -0.0047,
+        "lo": -0.0221,
+        "hi": 0.0132
+      }
+    },
+    "haiti: described vs short noul": {
+      "metric": "mean_auc",
+      "a": 0.8532,
+      "b": 0.8319,
+      "a_minus_b": {
+        "value": 0.0213,
+        "lo": -0.0011,
+        "hi": 0.0405
+      }
+    },
+    "humaid: typed vs router": {
+      "metric": "macro_f1",
+      "a": 0.5895,
+      "b": 0.5661,
+      "a_minus_b": {
+        "value": 0.0234,
+        "lo": 0.0011,
+        "hi": 0.0454
+      }
+    },
+    "humaid: coarse described vs coarse names": {
+      "metric": "macro_f1",
+      "a": 0.5895,
+      "b": 0.5164,
+      "a_minus_b": {
+        "value": 0.073,
+        "lo": 0.0445,
+        "hi": 0.1036
+      }
+    },
+    "crisisbench_ml: router vs forced multilingual": {
+      "metric": "macro_f1",
+      "a": 0.3462,
+      "b": 0.2986,
+      "a_minus_b": {
+        "value": 0.0476,
+        "lo": 0.0171,
+        "hi": 0.0782
+      }
+    },
+    "humset: router vs forced multilingual": {
+      "metric": "mean_auc",
+      "a": 0.6892,
+      "b": 0.659,
+      "a_minus_b": {
+        "value": 0.0303,
+        "lo": 0.0038,
+        "hi": 0.0592
+      }
+    },
+    "humset: described vs short, router": {
+      "metric": "mean_auc",
+      "a": 0.6892,
+      "b": 0.6645,
+      "a_minus_b": {
+        "value": 0.0248,
+        "lo": 0.0139,
+        "hi": 0.0355
+      }
+    },
+    "urgency: concrete vs plain wording (AUC)": {
+      "haiti_sms": {
+        "value": 0.0266,
+        "lo": -0.0068,
+        "hi": 0.0622
+      },
+      "humaid": {
+        "value": 0.004,
+        "lo": -0.0241,
+        "hi": 0.0342
+      }
+    }
+  },
+  "head_tokens": {
+    "haiti_sms": {
+      "noul_short/rescue": {
+        "instruction": 11,
+        "options": 18,
+        "instruction_kept": 11,
+        "cut": false
+      },
+      "noul_short/medical": {
+        "instruction": 11,
+        "options": 18,
+        "instruction_kept": 11,
+        "cut": false
+      },
+      "noul_short/water_food": {
+        "instruction": 12,
+        "options": 18,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "noul_short/shelter": {
+        "instruction": 11,
+        "options": 18,
+        "instruction_kept": 11,
+        "cut": false
+      },
+      "noul_described/rescue": {
+        "instruction": 20,
+        "options": 18,
+        "instruction_kept": 20,
+        "cut": false
+      },
+      "noul_described/medical": {
+        "instruction": 21,
+        "options": 18,
+        "instruction_kept": 21,
+        "cut": false
+      },
+      "noul_described/water_food": {
+        "instruction": 18,
+        "options": 18,
+        "instruction_kept": 18,
+        "cut": false
+      },
+      "noul_described/shelter": {
+        "instruction": 21,
+        "options": 18,
+        "instruction_kept": 21,
+        "cut": false
+      },
+      "choice_described/need": {
+        "instruction": 13,
+        "options": 50,
+        "instruction_kept": 13,
+        "cut": false
+      },
+      "urgency_plain/score": {
+        "instruction": 12,
+        "options": 22,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "urgency_concrete/score": {
+        "instruction": 12,
+        "options": 28,
+        "instruction_kept": 12,
+        "cut": false
+      }
+    },
+    "humaid": {
+      "choice_names/label": {
+        "instruction": 13,
+        "options": 48,
+        "instruction_kept": 13,
+        "cut": false
+      },
+      "choice_described/label": {
+        "instruction": 13,
+        "options": 118,
+        "instruction_kept": 13,
+        "cut": false
+      },
+      "coarse_names/label": {
+        "instruction": 13,
+        "options": 32,
+        "instruction_kept": 13,
+        "cut": false
+      },
+      "coarse_described/label": {
+        "instruction": 13,
+        "options": 104,
+        "instruction_kept": 13,
+        "cut": false
+      },
+      "urgency_plain/score": {
+        "instruction": 12,
+        "options": 22,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "urgency_concrete/score": {
+        "instruction": 12,
+        "options": 28,
+        "instruction_kept": 12,
+        "cut": false
+      }
+    },
+    "crisisbench_ml": {
+      "choice_names/label": {
+        "instruction": 13,
+        "options": 55,
+        "instruction_kept": 13,
+        "cut": false
+      },
+      "choice_described/label": {
+        "instruction": 13,
+        "options": 145,
+        "instruction_kept": 13,
+        "cut": false
+      },
+      "coarse_names/label": {
+        "instruction": 13,
+        "options": 32,
+        "instruction_kept": 13,
+        "cut": false
+      },
+      "coarse_described/label": {
+        "instruction": 13,
+        "options": 104,
+        "instruction_kept": 13,
+        "cut": false
+      },
+      "urgency_plain/score": {
+        "instruction": 12,
+        "options": 22,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "urgency_concrete/score": {
+        "instruction": 12,
+        "options": 28,
+        "instruction_kept": 12,
+        "cut": false
+      }
+    },
+    "humset": {
+      "noul_short/Health": {
+        "instruction": 12,
+        "options": 18,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "noul_short/Protection": {
+        "instruction": 12,
+        "options": 18,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "noul_short/Livelihoods": {
+        "instruction": 13,
+        "options": 18,
+        "instruction_kept": 13,
+        "cut": false
+      },
+      "noul_short/Food Security": {
+        "instruction": 13,
+        "options": 18,
+        "instruction_kept": 13,
+        "cut": false
+      },
+      "noul_short/WASH": {
+        "instruction": 12,
+        "options": 18,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "noul_short/Education": {
+        "instruction": 12,
+        "options": 18,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "noul_short/Shelter": {
+        "instruction": 12,
+        "options": 18,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "noul_short/Nutrition": {
+        "instruction": 12,
+        "options": 18,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "noul_short/Agriculture": {
+        "instruction": 12,
+        "options": 18,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "noul_short/Logistics": {
+        "instruction": 12,
+        "options": 18,
+        "instruction_kept": 12,
+        "cut": false
+      },
+      "noul_described/Health": {
+        "instruction": 19,
+        "options": 18,
+        "instruction_kept": 19,
+        "cut": false
+      },
+      "noul_described/Protection": {
+        "instruction": 21,
+        "options": 18,
+        "instruction_kept": 21,
+        "cut": false
+      },
+      "noul_described/Livelihoods": {
+        "instruction": 19,
+        "options": 18,
+        "instruction_kept": 19,
+        "cut": false
+      },
+      "noul_described/Food Security": {
+        "instruction": 17,
+        "options": 18,
+        "instruction_kept": 17,
+        "cut": false
+      },
+      "noul_described/WASH": {
+        "instruction": 18,
+        "options": 18,
+        "instruction_kept": 18,
+        "cut": false
+      },
+      "noul_described/Education": {
+        "instruction": 17,
+        "options": 18,
+        "instruction_kept": 17,
+        "cut": false
+      },
+      "noul_described/Shelter": {
+        "instruction": 20,
+        "options": 18,
+        "instruction_kept": 20,
+        "cut": false
+      },
+      "noul_described/Nutrition": {
+        "instruction": 18,
+        "options": 18,
+        "instruction_kept": 18,
+        "cut": false
+      },
+      "noul_described/Agriculture": {
+        "instruction": 19,
+        "options": 18,
+        "instruction_kept": 19,
+        "cut": false
+      },
+      "noul_described/Logistics": {
+        "instruction": 19,
+        "options": 18,
+        "instruction_kept": 19,
+        "cut": false
+      }
+    }
+  }
+}
