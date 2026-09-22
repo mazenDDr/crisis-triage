@@ -36,16 +36,9 @@ def auc(y_true, y_score) -> float:
     n_pos, n_neg = y_true.sum(), (~y_true).sum()
     if n_pos == 0 or n_neg == 0:
         return float("nan")
-    order = np.argsort(y_score, kind="mergesort")
-    ranks = np.empty(len(y_score))
-    sorted_scores = y_score[order]
-    i = 0
-    while i < len(order):
-        j = i
-        while j + 1 < len(order) and sorted_scores[j + 1] == sorted_scores[i]:
-            j += 1
-        ranks[order[i : j + 1]] = (i + j) / 2 + 1
-        i = j + 1
+    # Average rank per distinct score: tied scores share the mean of their positions.
+    _, inverse, counts = np.unique(y_score, return_inverse=True, return_counts=True)
+    ranks = (np.cumsum(counts) - (counts - 1) / 2)[inverse]
     return float((ranks[y_true].sum() - n_pos * (n_pos + 1) / 2) / (n_pos * n_neg))
 
 
@@ -64,3 +57,46 @@ def paired_bootstrap(
     boots = [metric(rng.integers(0, n, n)) for _ in range(reps)]
     lo, hi = np.nanpercentile(boots, [2.5, 97.5])
     return {"value": round(full, 4), "lo": round(float(lo), 4), "hi": round(float(hi), 4)}
+
+
+def reliability(conf, correct, bins: int = 10) -> list[dict]:
+    """Equal-width confidence bins: mean confidence, accuracy and count in each."""
+    conf, correct = np.asarray(conf, float), np.asarray(correct, float)
+    edges = np.linspace(0, 1, bins + 1)
+    idx = np.clip(np.digitize(conf, edges[1:-1]), 0, bins - 1)
+    return [
+        {
+            "lo": float(edges[b]),
+            "hi": float(edges[b + 1]),
+            "n": int((idx == b).sum()),
+            "conf": float(conf[idx == b].mean()) if (idx == b).any() else None,
+            "acc": float(correct[idx == b].mean()) if (idx == b).any() else None,
+        }
+        for b in range(bins)
+    ]
+
+
+def ece(conf, correct, bins: int = 10) -> float:
+    """Expected calibration error: count-weighted |accuracy - confidence| over bins."""
+    n = len(conf)
+    return float(
+        sum(
+            b["n"] / n * abs(b["acc"] - b["conf"])
+            for b in reliability(conf, correct, bins)
+            if b["n"]
+        )
+    )
+
+
+def brier(probs, onehot) -> float:
+    """Mean squared error of probabilities: (n, k) for k classes, or (n,) for yes/no."""
+    probs, onehot = np.asarray(probs, float), np.asarray(onehot, float)
+    err = (probs - onehot) ** 2
+    return float(err.sum(axis=1).mean() if err.ndim == 2 else err.mean())
+
+
+def best_threshold(y_true, y_score) -> float:
+    """The score threshold with the highest F1 (chosen on dev, applied to test)."""
+    y_score = np.asarray(y_score, float)
+    candidates = np.unique(np.quantile(y_score, np.linspace(0.01, 0.99, 99)))
+    return float(max(candidates, key=lambda t: binary_f1(y_true, y_score, t)))

@@ -36,6 +36,14 @@ French and 25/30 Creole. No dataset labels urgency or location.
 
 Not used: Kawarith (Arabic crisis tweets) ships tweet IDs only, without text.
 
+## Results so far
+
+Laya zero-shot on the test splits, with every setting chosen on dev:
+[`results/t04_test.json`](results/t04_test.json) (scores with 95% bootstrap intervals and
+calibration) and [`results/t04_latency.json`](results/t04_latency.json) (one message at a time
+on an RTX 5060 Ti and an M4 Pro Mac). The comparison with LLM baselines comes next; the README
+tables are generated from these files once it is done.
+
 ## Licences
 
 | | Licence |

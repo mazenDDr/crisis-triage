@@ -24,3 +24,27 @@ def test_paired_bootstrap_interval_contains_value():
     x = np.random.default_rng(1).normal(0.1, 1, 500)
     r = paired_bootstrap(lambda i: float(x[i].mean()), len(x), reps=300)
     assert r["lo"] <= r["value"] <= r["hi"]
+
+
+def test_ece_zero_when_confidence_matches_accuracy():
+    from crisis_triage.metrics import ece
+
+    conf = [0.8] * 10
+    correct = [1] * 8 + [0] * 2
+    assert abs(ece(conf, correct)) < 1e-9
+    assert abs(ece([0.9] * 10, correct) - 0.1) < 1e-9
+
+
+def test_brier_multiclass_and_binary():
+    from crisis_triage.metrics import brier
+
+    assert brier([[1, 0], [0.5, 0.5]], [[1, 0], [1, 0]]) == 0.25
+    assert brier([0.5, 1.0], [1, 1]) == 0.125
+
+
+def test_best_threshold_separates_classes():
+    from crisis_triage.metrics import best_threshold, binary_f1
+
+    y = [0] * 50 + [1] * 50
+    s = list(np.linspace(0, 0.4, 50)) + list(np.linspace(0.6, 1, 50))
+    assert binary_f1(y, s, best_threshold(y, s)) == 1.0
