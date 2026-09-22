@@ -16,6 +16,36 @@ make check
 
 GPU work (Laya on CUDA, LLM baselines) runs on a separate CUDA machine; see `gpu`.
 
-## Licence
+## Data
 
-Code: MIT. Laya: Apache-2.0. Dataset licences are listed here once the data is chosen.
+Four tracks, built by `scripts/build_data.py` (counts in
+[`results/data_summary.json`](results/data_summary.json)). Dev is used to tune questions and train
+baselines; test is only used for reported numbers.
+
+| Track | What | Languages | Dev / test | How it is split |
+|---|---|---|---|---|
+| `haiti_sms` | SMS sent to the 4636 line after the 2010 Haiti earthquake (a few from the 2010 Pakistan floods): original text + English translation, labelled needs | Haitian Creole, French (+ English) | 8,609 / 996 | official split (the set has no event column) |
+| `humaid` | tweets from 19 disasters, 10 humanitarian classes | English | 37,211 / 39,265 | by time: 2016–17 events / 2018–19 events |
+| `crisisbench_ml` | the non-English tweets of CrisisBench, 16 humanitarian classes | es, it, fr, tl, pt | 2,737 / 5,534 | by time: 2011–12 events / 2013–15 events |
+| `humset` | humanitarian report excerpts, labelled sectors | en, fr, es | 131,495 / 14,571 | official split (documents separate, projects shared) |
+
+Copies are removed: texts seen in dev are dropped from test, and CrisisBench rows that copy
+Disaster Response messages are dropped. The Creole/French tag on `haiti_sms` is a word-list
+heuristic (`unk` when neither list matches); a hand check of 30 messages per tag found 29/30
+French and 25/30 Creole. No dataset labels urgency or location.
+
+Not used: Kawarith (Arabic crisis tweets) ships tweet IDs only, without text.
+
+## Licences
+
+| | Licence |
+|---|---|
+| Code | MIT |
+| [Laya](https://github.com/NandhaKishorM/laya) | Apache-2.0 |
+| [HumAID](https://huggingface.co/datasets/QCRI/HumAID-events) | CC BY-NC-SA 4.0 |
+| [CrisisBench](https://huggingface.co/datasets/QCRI/CrisisBench-all-lang) | CC BY-NC-SA 4.0 |
+| [HumSet](https://huggingface.co/datasets/nlp-thedeep/humset) | Apache-2.0 |
+| [Disaster Response Messages](https://huggingface.co/datasets/community-datasets/disaster_response_messages) (Appen) | not stated on the dataset card |
+
+This repository does not redistribute any dataset text: data is downloaded by
+`scripts/download_data.sh`, and committed results hold counts and scores only.
