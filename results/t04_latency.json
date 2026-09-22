@@ -1,0 +1,104 @@
+{
+  "mac-m4pro": {
+    "machine": "mac-m4pro",
+    "device": "mps",
+    "warmup": 10,
+    "runs": {
+      "haiti_original": {
+        "questions": 5,
+        "timed": 100,
+        "p50_ms": 38.953,
+        "p95_ms": 50.135,
+        "mean_ms": 40.633,
+        "min_ms": 31.108
+      },
+      "haiti_human": {
+        "questions": 5,
+        "timed": 100,
+        "p50_ms": 77.634,
+        "p95_ms": 101.493,
+        "mean_ms": 80.08,
+        "min_ms": 61.971
+      },
+      "humaid": {
+        "questions": 2,
+        "timed": 100,
+        "p50_ms": 77.587,
+        "p95_ms": 89.337,
+        "mean_ms": 76.666,
+        "min_ms": 65.566
+      },
+      "crisisbench_ml": {
+        "questions": 2,
+        "timed": 100,
+        "p50_ms": 39.307,
+        "p95_ms": 80.028,
+        "mean_ms": 55.544,
+        "min_ms": 32.541
+      },
+      "humset": {
+        "questions": 10,
+        "timed": 100,
+        "p50_ms": 162.861,
+        "p95_ms": 288.792,
+        "mean_ms": 172.905,
+        "min_ms": 59.559
+      }
+    }
+  },
+  "rtx5060ti": {
+    "machine": "rtx5060ti",
+    "device": "cuda",
+    "warmup": 10,
+    "runs": {
+      "haiti_original": {
+        "questions": 5,
+        "timed": 100,
+        "p50_ms": 40.806,
+        "p95_ms": 53.574,
+        "mean_ms": 40.439,
+        "min_ms": 14.746
+      },
+      "haiti_mt": {
+        "questions": 5,
+        "timed": 100,
+        "p50_ms": 280.268,
+        "p95_ms": 986.674,
+        "mean_ms": 372.487,
+        "min_ms": 60.021
+      },
+      "haiti_human": {
+        "questions": 5,
+        "timed": 100,
+        "p50_ms": 22.105,
+        "p95_ms": 47.651,
+        "mean_ms": 27.522,
+        "min_ms": 19.288
+      },
+      "humaid": {
+        "questions": 2,
+        "timed": 100,
+        "p50_ms": 23.753,
+        "p95_ms": 61.873,
+        "mean_ms": 31.964,
+        "min_ms": 22.434
+      },
+      "crisisbench_ml": {
+        "questions": 2,
+        "timed": 100,
+        "p50_ms": 23.671,
+        "p95_ms": 61.599,
+        "mean_ms": 33.408,
+        "min_ms": 14.892
+      },
+      "humset": {
+        "questions": 10,
+        "timed": 100,
+        "p50_ms": 49.917,
+        "p95_ms": 56.9,
+        "mean_ms": 49.663,
+        "min_ms": 18.482
+      }
+    }
+  }
+}

@@ -36,3 +36,12 @@ def test_every_fine_class_maps_to_a_coarse_class():
 
     assert set(TO_COARSE) == set(HUMANITARIAN)
     assert set(TO_COARSE.values()) == set(COARSE)
+
+
+def test_coarse_run_questions_match_class_variants():
+    from crisis_triage.questions import COARSE
+    from crisis_triage.runs import run_questions
+
+    direct = run_questions("humaid", "coarse_described")["coarse_described/label"]
+    assert direct == class_variants(["not_humanitarian"])["coarse_described"]["label"]
+    assert len(direct["criteria"]) == len(COARSE)
