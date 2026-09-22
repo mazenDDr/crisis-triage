@@ -1,0 +1,4 @@
+# Files under outputs/ that are produced on the Mac: `make pull` must never overwrite them
+# with the GPU machine's copies.
+env_mac-*
+latency_mac-*
