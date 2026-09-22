@@ -9,7 +9,30 @@ import json
 from pathlib import Path
 
 from crisis_triage.latency import time_call
-from crisis_triage.questions import TRIAGE
+
+# First draft of the triage questions, kept as the smoke test's input. T03 chooses the wording.
+TRIAGE = {
+    "need": {
+        "type": "choice",
+        "instructions": "What does the person who wrote this message need most?",
+        "criteria": {
+            "rescue": "trapped, missing people, search and rescue",
+            "medical": "injured, sick, medicine, doctors",
+            "water_food": "drinking water, food, hunger",
+            "shelter": "tents, housing, homeless after the disaster",
+            "none": "no request for help, news, opinion or unrelated",
+        },
+    },
+    "urgency": {
+        "type": "score",
+        "instructions": "How urgent is this message for emergency responders?",
+        "criteria": ["not urgent", "needs help soon", "life in danger right now"],
+    },
+    "has_location": {
+        "type": "noul",
+        "instructions": "Does the message say where the people who need help are?",
+    },
+}
 
 MESSAGES = {
     "en": "We are trapped under the school roof in Carrefour, 3 children, please send help",
