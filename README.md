@@ -42,6 +42,7 @@ Not used: Kawarith (Arabic crisis tweets) ships tweet IDs only, without text.
 |---|---|
 | Code | MIT |
 | [Laya](https://github.com/NandhaKishorM/laya) | Apache-2.0 |
+| [NLLB-200 distilled 600M / 1.3B](https://huggingface.co/facebook/nllb-200-distilled-600M) (translation of Creole/French SMS) | CC BY-NC 4.0 |
 | [HumAID](https://huggingface.co/datasets/QCRI/HumAID-events) | CC BY-NC-SA 4.0 |
 | [CrisisBench](https://huggingface.co/datasets/QCRI/CrisisBench-all-lang) | CC BY-NC-SA 4.0 |
 | [HumSet](https://huggingface.co/datasets/nlp-thedeep/humset) | Apache-2.0 |
