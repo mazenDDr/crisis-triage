@@ -47,3 +47,16 @@ def run_questions(track: str, variant: str) -> dict:
         variants = Q.class_variants(labels)
     urgency = {} if track == "humset" else {Q.URGENCY_CHOSEN: Q.URGENCY[Q.URGENCY_CHOSEN]}
     return Q.flatten({variant: variants[variant]}, urgency)
+
+
+# The LLM baselines answer a fixed random sample of the two biggest test sets (HumAID: 39,265
+# tweets x 2 questions, HumSet: 14,571 excerpts x 10 questions); every system is compared on
+# the same sampled messages.
+LLM_TEST_SAMPLE = {"humaid": 8000, "humset": 3000}
+
+
+def llm_test_split(track: str) -> pd.DataFrame:
+    df = test_split(track)
+    if track in LLM_TEST_SAMPLE:
+        df = df.sample(LLM_TEST_SAMPLE[track], random_state=0).reset_index(drop=True)
+    return df
