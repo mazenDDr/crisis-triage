@@ -82,6 +82,8 @@ def main():
                 p = [probs[Q.readable(c)] for c in classes]
                 best = max(range(len(p)), key=p.__getitem__)
                 row["systems"][s] = [best, round(p[best], 4)]
+                if s == "laya-ft":  # the full answer, for the "one message, one pass" section
+                    row["laya_ft_probs"] = [round(x, 4) for x in p]
             rows.append(row)
         out["tracks"][run] = {"classes": [Q.readable(c) for c in classes], "messages": rows}
     Path("results/demo_messages.json").write_text(json.dumps(out, ensure_ascii=False) + "\n")

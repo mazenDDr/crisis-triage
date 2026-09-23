@@ -51,11 +51,13 @@ accuracy (thresholds chosen on dev, checked on test):
 [`results/t06_gating.json`](results/t06_gating.json). The README tables will be generated from
 these files.
 
-## Triage board
+## The story page
 
-[`site/index.html`](site/index.html) replays 150 real test tweets per track with every system's
-recorded answer: pick a system and a rule, and see which tweets would be sent automatically and
-which would wait for a person. Rebuild it from the results with `make site`.
+[`site/index.html`](site/index.html) tells the project in seven short chapters, all drawn from the
+committed results: real test tweets flowing through the fine-tuned Laya, one message scored in a
+single pass, "sure is not the same as right" (100-tweet grids per system), what 17 minutes of
+fine-tuning changed, the Haitian Creole story, a hands-on triage board, and the limits. Rebuild
+it with `make site`.
 
 ## Licences
 
