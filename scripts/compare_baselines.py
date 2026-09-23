@@ -14,6 +14,8 @@ from crisis_triage.runs import RUNS, SETTINGS
 
 T05 = Path("outputs/t05")
 BASELINES = ("e5lr", "qwen3-4b", "gemma3-4b")
+FINE_TUNED = "laya-ft"  # T07: Laya fine-tuned on the dev splits
+SYSTEMS = ("laya", FINE_TUNED, *BASELINES)
 # GPU-hours are measured; dollars use this assumed rental price for one consumer GPU.
 USD_PER_GPU_HOUR = 0.50
 
@@ -23,14 +25,14 @@ def paths(system: str, name: str) -> tuple[Path, Path | None]:
     dev_ref = RUNS[name][2]
     if system == "laya":
         return Path("outputs/t04") / f"{name}.jsonl", Path(dev_ref) if dev_ref else None
-    base = T05 / system
+    base = Path("outputs/t07") if system == FINE_TUNED else T05 / system
     return base / f"{name}__test.jsonl", (base / f"{name}__dev.jsonl") if dev_ref else None
 
 
 def timings() -> dict:
     out = {"laya": json.loads(Path("results/t04_latency.json").read_text())["rtx5060ti"]["runs"]}
-    for system in BASELINES:
-        path = T05 / system / "timing.json"
+    for system in (FINE_TUNED, *BASELINES):
+        path = paths(system, "humaid")[0].parent / "timing.json"
         if path.exists():
             out[system] = json.loads(path.read_text())["runs"]
     return out
@@ -43,7 +45,7 @@ def main():
         results[name], fns = {}, {}
         systems = [
             s
-            for s in ("laya", *BASELINES)
+            for s in SYSTEMS
             if paths(s, name)[0].exists() and (not dev_ref or paths(s, name)[1].exists())
         ]
         # Every system is scored on the messages all of them answered (the LLM sample).
@@ -59,9 +61,10 @@ def main():
             print(name, system, "scored", flush=True)
         n = next(iter(results[name].values()))["n"]
         paired[name] = {
-            f"laya - {s}": ci(lambda i, s=s, f=fns: f["laya"](i) - f[s](i), n)
-            for s in fns
-            if s != "laya"
+            f"{a} - {b}": ci(lambda i, a=a, b=b, f=fns: f[a](i) - f[b](i), n)
+            for a in ("laya", FINE_TUNED)
+            for b in fns
+            if a in fns and b != a and not (a == FINE_TUNED and b == "laya")
         }
     speed = {}
     for system, runs in timings().items():

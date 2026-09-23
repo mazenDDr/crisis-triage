@@ -1,0 +1,135 @@
+{
+  "base": "convaiinnovations/laya (multilingual)",
+  "train_examples": 40737,
+  "held_out_examples": 16000,
+  "epochs": [
+    {
+      "epoch": 1,
+      "avg_loss": 0.2606,
+      "seconds": 509
+    },
+    {
+      "epoch": 2,
+      "avg_loss": 0.2415,
+      "seconds": 1014
+    }
+  ],
+  "held_out_loss": {
+    "before": {
+      "noul": 0.6095,
+      "choice": 2.0975
+    },
+    "after": {
+      "noul": 0.2124,
+      "choice": 1.0097
+    },
+    "after_temperature": {
+      "noul": 0.1466,
+      "choice": 0.7771
+    }
+  },
+  "temperature": [
+    1.8389919996261597,
+    1.0,
+    2.0629870891571045
+  ],
+  "timing_runs": [
+    {
+      "machine": "rtx5060ti",
+      "warmup": 10,
+      "runs": {
+        "haiti_original": {
+          "questions": 5,
+          "p50_ms": 15.752,
+          "p95_ms": 54.63,
+          "mean_ms": 23.566,
+          "min_ms": 14.598
+        },
+        "haiti_mt": {
+          "questions": 5,
+          "p50_ms": 15.661,
+          "p95_ms": 55.199,
+          "mean_ms": 24.383,
+          "min_ms": 14.525
+        },
+        "haiti_human": {
+          "questions": 5,
+          "p50_ms": 15.688,
+          "p95_ms": 40.515,
+          "mean_ms": 17.325,
+          "min_ms": 14.839
+        },
+        "humaid": {
+          "questions": 2,
+          "p50_ms": 46.295,
+          "p95_ms": 57.207,
+          "mean_ms": 43.519,
+          "min_ms": 15.541
+        },
+        "crisisbench_ml": {
+          "questions": 2,
+          "p50_ms": 17.257,
+          "p95_ms": 55.942,
+          "mean_ms": 32.257,
+          "min_ms": 15.527
+        },
+        "humset": {
+          "questions": 10,
+          "p50_ms": 22.552,
+          "p95_ms": 44.044,
+          "mean_ms": 25.232,
+          "min_ms": 16.217
+        }
+      }
+    },
+    {
+      "machine": "rtx5060ti",
+      "warmup": 10,
+      "runs": {
+        "haiti_original": {
+          "questions": 5,
+          "p50_ms": 15.893,
+          "p95_ms": 54.311,
+          "mean_ms": 23.035,
+          "min_ms": 14.854
+        },
+        "haiti_mt": {
+          "questions": 5,
+          "p50_ms": 53.096,
+          "p95_ms": 55.769,
+          "mean_ms": 53.111,
+          "min_ms": 48.179
+        },
+        "haiti_human": {
+          "questions": 5,
+          "p50_ms": 40.086,
+          "p95_ms": 43.572,
+          "mean_ms": 30.502,
+          "min_ms": 15.272
+        },
+        "humaid": {
+          "questions": 2,
+          "p50_ms": 53.099,
+          "p95_ms": 57.004,
+          "mean_ms": 52.367,
+          "min_ms": 15.823
+        },
+        "crisisbench_ml": {
+          "questions": 2,
+          "p50_ms": 16.096,
+          "p95_ms": 42.397,
+          "mean_ms": 17.918,
+          "min_ms": 15.328
+        },
+        "humset": {
+          "questions": 10,
+          "p50_ms": 21.924,
+          "p95_ms": 34.137,
+          "mean_ms": 23.45,
+          "min_ms": 16.074
+        }
+      }
+    }
+  ],
+  "timing_note": "one message at a time; this WSL GPU is bimodal (about 16 ms or about 50 ms per call) and the mode changes between runs, so both runs are kept"
+}

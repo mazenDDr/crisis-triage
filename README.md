@@ -42,8 +42,10 @@ Laya zero-shot on the test splits, with every setting chosen on dev:
 [`results/t04_test.json`](results/t04_test.json) (scores with 95% bootstrap intervals and
 calibration) and [`results/t04_latency.json`](results/t04_latency.json) (one message at a time
 on an RTX 5060 Ti and an M4 Pro Mac). Laya against two local LLMs and a small trained
-classifier, on the same test messages: [`results/t05_test.json`](results/t05_test.json). The
-README tables will be generated from these files.
+classifier, and Laya fine-tuned on the dev splits, on the same test messages:
+[`results/t05_test.json`](results/t05_test.json) (fine-tuning details in
+[`results/t07_finetune.json`](results/t07_finetune.json)). The README tables will be generated
+from these files.
 
 ## Licences
 
