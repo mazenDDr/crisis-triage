@@ -51,6 +51,14 @@ accuracy (thresholds chosen on dev, checked on test):
 [`results/t06_gating.json`](results/t06_gating.json). The README tables will be generated from
 these files.
 
+## The story page
+
+[`site/index.html`](site/index.html) tells the project in seven short chapters, all drawn from the
+committed results: real test tweets flowing through the fine-tuned Laya, one message scored in a
+single pass, "sure is not the same as right" (100-tweet grids per system), what 17 minutes of
+fine-tuning changed, the Haitian Creole story, a hands-on triage board, and the limits. Rebuild
+it with `make site`.
+
 ## Licences
 
 | | Licence |
@@ -66,5 +74,7 @@ these files.
 | [HumSet](https://huggingface.co/datasets/nlp-thedeep/humset) | Apache-2.0 |
 | [Disaster Response Messages](https://huggingface.co/datasets/community-datasets/disaster_response_messages) (Appen) | not stated on the dataset card |
 
-This repository does not redistribute any dataset text: data is downloaded by
+`results/demo_messages.json` (the triage board's 300 tweets, user names replaced and links
+removed) is CC BY-NC-SA 4.0, like HumAID and CrisisBench. Apart from that file, this repository
+does not redistribute any dataset text: data is downloaded by
 `scripts/download_data.sh`, and committed results hold counts and scores only.

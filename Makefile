@@ -1,4 +1,4 @@
-.PHONY: check test env-check pull
+.PHONY: check test env-check pull site
 
 check:
 	python -m ruff check .
@@ -13,3 +13,6 @@ pull:
 
 env-check:
 	PYTHONPATH=src python scripts/env_check.py
+
+site:
+	PYTHONPATH=src python scripts/build_site.py
