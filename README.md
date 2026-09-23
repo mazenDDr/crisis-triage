@@ -51,6 +51,12 @@ accuracy (thresholds chosen on dev, checked on test):
 [`results/t06_gating.json`](results/t06_gating.json). The README tables will be generated from
 these files.
 
+## Triage board
+
+[`site/index.html`](site/index.html) replays 150 real test tweets per track with every system's
+recorded answer: pick a system and a rule, and see which tweets would be sent automatically and
+which would wait for a person. Rebuild it from the results with `make site`.
+
 ## Licences
 
 | | Licence |
@@ -66,5 +72,7 @@ these files.
 | [HumSet](https://huggingface.co/datasets/nlp-thedeep/humset) | Apache-2.0 |
 | [Disaster Response Messages](https://huggingface.co/datasets/community-datasets/disaster_response_messages) (Appen) | not stated on the dataset card |
 
-This repository does not redistribute any dataset text: data is downloaded by
+`results/demo_messages.json` (the triage board's 300 tweets, user names replaced and links
+removed) is CC BY-NC-SA 4.0, like HumAID and CrisisBench. Apart from that file, this repository
+does not redistribute any dataset text: data is downloaded by
 `scripts/download_data.sh`, and committed results hold counts and scores only.
