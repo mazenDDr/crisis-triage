@@ -44,3 +44,4 @@ select = ["E", "F", "I", "B", "UP"]
 # markdown template lines are long by nature
 "scripts/build_model_card.py" = ["E501"]
 "scripts/build_site.py" = ["E501"]
+"scripts/build_readme.py" = ["E501"]

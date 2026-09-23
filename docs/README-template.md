@@ -13,35 +13,29 @@ real test tweets are sorted live from recorded answers. **Model:**
 
 ## What we found
 
-- **After 17 minutes of fine-tuning, Laya sends 38% of tweets from new disasters
-  on its own, and 94.9% of those are right** (the target was 95%). The other
-  62% go to a person.
+- **After {{ft_minutes}} minutes of fine-tuning, Laya sends {{ft_sent}} of tweets from new disasters
+  on its own, and {{ft_right}} of those are right** (the target was 95%). The other
+  {{ft_person}} go to a person.
 - **Chat models are sure of almost everything.** Trusting Qwen3-4B's own "≥ 95% sure" sends
-  95% of tweets on their own, but only 72% are right: about
-  26 wrong answers per 100 tweets that nobody checks.
-- **Out of the box, Laya was the weakest of five systems** (macro-F1 0.57). Fine-tuned on
-  40,737 examples from earlier disasters, it is the best on the later ones
-  (0.72; +0.038 [+0.024, +0.051] over a trained e5 classifier, paired on the same tweets), and its
+  {{qwen_sent}} of tweets on their own, but only {{qwen_right}} are right: about
+  {{qwen_wrong_per_100}} wrong answers per 100 tweets that nobody checks.
+- **Out of the box, Laya was the weakest of five systems** (macro-F1 {{zs_f1}}). Fine-tuned on
+  {{ft_examples}} examples from earlier disasters, it is the best on the later ones
+  ({{ft_f1}}; {{ft_vs_e5}} over a trained e5 classifier, paired on the same tweets), and its
   confidence is the most trustworthy (lowest calibration error).
-- **It didn't read Haitian Creole well:** mean AUC 0.67 on the original SMS. Translating
-  first (NLLB-600M) raises it to 0.77; fine-tuning, to 0.84.
+- **It didn't read Haitian Creole well:** mean AUC {{haiti_zs}} on the original SMS. Translating
+  first (NLLB-600M) raises it to {{haiti_mt}}; fine-tuning, to {{haiti_ft}}.
 - **The safety line can slip on new events:** on the multilingual tweets, the line chosen on
-  earlier disasters reached 88.5% right on test, not 95%.
+  earlier disasters reached {{cb_reached}} right on test, not 95%.
 
-## At the desk: HumAID, 8,000 test tweets from 9 disasters
+## At the desk: HumAID, {{n_humaid}} test tweets from 9 disasters
 
 Every system answers the same 8-class question ("which kind of information does this crisis
 message give?"). "Sent on its own" uses the lowest confidence cut that reached 95% right on
 **dev** (earlier disasters), applied to test. "Trust its own" sends whenever the model says it is
 at least 95% sure. Time is one message at a time on an RTX 5060 Ti.
 
-| | Category score (macro-F1) | Sent on its own at the 95% target | …right among those | Trust its own “≥ 95% sure” | …right among those | Time per message |
-|---|---|---|---|---|---|---|
-| **Laya, fine-tuned** | 0.725 [0.712, 0.737] | 38% | 94.9% | 22% | 98.4% | 46–53 ms |
-| e5 + LR (trained) | 0.687 [0.675, 0.700] | 32% | 95.2% | 7% | 99.5% | 18 ms |
-| Qwen3-4B | 0.642 [0.630, 0.653] | 0% | — | 95% | 72.2% | 114 ms |
-| Gemma-3-4B | 0.597 [0.584, 0.609] | 0% | — | 96% | 66.7% | 126 ms |
-| Laya, out of the box | 0.568 [0.556, 0.579] | 6% | 80.5% | 0% | — | 24 ms |
+{{desk_table}}
 
 "—": nothing sent. A 95% interval is shown for the category score; every other interval is in
 [`results/t06_gating.json`](results/t06_gating.json).
@@ -52,14 +46,7 @@ Same test messages for every system (the LLMs answered a fixed random sample of 
 sets). Bold marks the best score in each row. Intervals and paired differences are in
 [`results/t05_test.json`](results/t05_test.json).
 
-| Test set | n | Metric | **Laya, fine-tuned** | e5 + LR (trained) | Qwen3-4B | Gemma-3-4B | Laya, out of the box |
-|---|---|---|---|---|---|---|---|
-| Haiti SMS, Creole/French original | 996 | mean AUC | 0.838 | **0.844** | 0.762 | 0.813 | 0.669 |
-| Haiti SMS, NLLB translation | 996 | mean AUC | 0.844 | — | 0.822 | **0.851** | 0.772 |
-| Haiti SMS, human translation | 996 | mean AUC | 0.905 | — | 0.879 | **0.927** | 0.849 |
-| HumAID tweets, 2018–19 disasters | 8,000 | macro-F1 | **0.725** | 0.687 | 0.642 | 0.597 | 0.568 |
-| CrisisBench tweets, es/fr/it/pt/tl | 5,534 | macro-F1 | **0.453** | 0.289 | 0.426 | 0.387 | 0.280 |
-| HumSet report excerpts | 3,000 | mean AUC | 0.934 | **0.954** | 0.932 | 0.910 | 0.691 |
+{{all_runs_table}}
 
 - **Laya, out of the box**: [convaiinnovations/laya](https://huggingface.co/convaiinnovations/laya), no training on this task, with question wording and checkpoint chosen on dev.
 - **Laya, fine-tuned**: one multilingual checkpoint trained on every track's dev split at once ([`scripts/finetune_laya.py`](scripts/finetune_laya.py)).
@@ -68,12 +55,7 @@ sets). Bold marks the best score in each row. Intervals and paired differences a
 
 ## Languages: the Haitian Creole SMS
 
-| Haiti SMS, 996 test messages | Mean AUC over 4 needs [95% CI] |
-|---|---|
-| Laya, out of the box, reads the Creole | 0.669 [0.625, 0.713] |
-| Laya, after an NLLB-600M translation to English | 0.772 [0.731, 0.809] |
-| Laya, fine-tuned, reads the Creole | 0.838 [0.800, 0.879] |
-| Laya with a human translator (upper bound) | 0.849 [0.820, 0.878] |
+{{creole_table}}
 
 Mean AUC over rescue, medical, water/food and shelter needs. The Haiti set is one event with a
 message-level split, so it favours trained models; HumAID and CrisisBench are split by time.
