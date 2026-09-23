@@ -216,6 +216,14 @@ save_file(
 model.encoder.config.save_pretrained(str(out / "encoder"))
 tok.save_pretrained(str(out / "tokenizer"))
 cfg.update(fine_tuned=True, model_name="laya-crisis-triage", temperature=temps)
+cfg["training"] = {  # replace the base checkpoint's record with this fine-tuning run
+    "fine_tuned_from": "convaiinnovations/laya (multilingual)",
+    "fine_tuned_from_checkpoint": True,
+    "examples": len(train),
+    "epochs_completed": args.epochs,
+    "minutes": round(log[-1]["seconds"] / 60, 1),
+    "world_size": 1,
+}
 cfg.pop("temperature_by_options", None)  # buckets were fitted for the base model
 cfg.pop("gradient_checkpointing", None)
 (out / "rl_agent_config.json").write_text(json.dumps(cfg, indent=2))
