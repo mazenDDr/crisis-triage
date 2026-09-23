@@ -44,8 +44,9 @@ calibration) and [`results/t04_latency.json`](results/t04_latency.json) (one mes
 on an RTX 5060 Ti and an M4 Pro Mac). Laya against two local LLMs and a small trained
 classifier, and Laya fine-tuned on the dev splits, on the same test messages:
 [`results/t05_test.json`](results/t05_test.json) (fine-tuning details in
-[`results/t07_finetune.json`](results/t07_finetune.json)). The README tables will be generated
-from these files.
+[`results/t07_finetune.json`](results/t07_finetune.json)). How many messages each system can route without a person at 90% and 95% accuracy
+(thresholds chosen on dev, checked on test): [`results/t06_gating.json`](results/t06_gating.json).
+The README tables will be generated from these files.
 
 ## Licences
 
