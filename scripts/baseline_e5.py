@@ -1,5 +1,8 @@
 """T05 trained baseline: e5 embeddings + logistic regression, trained on each dev split.
 
+The regularisation strength and class weighting are chosen per track by cross-validation on
+the dev split (trained.GRID); the chosen setting and every score are saved with the timing.
+
 Writes outputs/t05/e5lr/<run>__test.jsonl (every test message) and <run>__dev.jsonl (the fixed
 dev sample, out-of-fold, used only for thresholds), plus one-message-at-a-time timing.
 """
@@ -55,16 +58,18 @@ def main():
         if track in ("haiti_sms", "humset"):
             labels = list(Q.HAITI_NEEDS if track == "haiti_sms" else Q.HUMSET_SECTORS)
             y = np.array([[c in set(ls) for c in labels] for ls in tr["labels"]])
-            p_te, p_oof = T.fit_multilabel(x, y, x_te)
+            params, table = T.select_multilabel(x, y)
+            p_te, p_oof = T.fit_multilabel(x, y, x_te, params)
             urgent = Q.URGENT_CLASSES.get(track)
             ans_te = T.multilabel_answers(p_te, labels, variant, urgent)
             ans_oof = T.multilabel_answers(p_oof, labels, variant, urgent)
-            predict = T.classifier().fit(x, y[:, 0])  # one head, for timing
+            predict = T.classifier(**params).fit(x, y[:, 0])  # one head, for timing
         else:
             y = tr["label"].map(Q.TO_COARSE).to_numpy()
-            p_te, p_oof = T.fit_choice(x, y, x_te)
+            params, table = T.select_choice(x, y)
+            p_te, p_oof = T.fit_choice(x, y, x_te, params)
             ans_te, ans_oof = T.choice_answers(p_te, variant), T.choice_answers(p_oof, variant)
-            predict = T.classifier().fit(x, y)
+            predict = T.classifier(**params).fit(x, y)
         write(OUT / f"{name}__test.jsonl", te["uid"], ans_te)
         keep = set(dev_sample(track)["uid"])
         idx = [i for i, u in enumerate(tr["uid"]) if u in keep]
@@ -83,7 +88,13 @@ def main():
             torch.cuda.synchronize()
             if k >= 10:
                 times.append((time.perf_counter() - t0) * 1e3)
-        timing[name] = {"train_rows": len(tr), "heads": heads, **summarize(times)}
+        timing[name] = {
+            "train_rows": len(tr),
+            "heads": heads,
+            "params": params,
+            "selection": table,
+            **summarize(times),
+        }
         print(name, timing[name], flush=True)
     (OUT / "timing.json").write_text(
         json.dumps({"machine": machine_label(), "warmup": 10, "runs": timing}, indent=2)

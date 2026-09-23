@@ -9,10 +9,12 @@ import textwrap
 from html import escape
 from pathlib import Path
 
+from crisis_triage.standing import standing
+
 RESULTS = Path("results")
 SYSTEMS = [
     ("laya-ft", "**Laya, fine-tuned**"),
-    ("e5lr", "e5 + LR (trained)"),
+    ("e5lr", "e5 + LR (trained, tuned on dev)"),
     ("qwen3-4b", "Qwen3-4B"),
     ("gemma3-4b", "Gemma-3-4B"),
     ("laya", "Laya, out of the box"),
@@ -95,13 +97,76 @@ def creole_table(scores) -> str:
     return "\n".join(out)
 
 
+def budget_table(budget: dict) -> str:
+    """Mean macro-F1 of e5 + LR trained on N labelled dev messages, and how often it beats Laya
+    out of the box (paired interval above 0) on the same test messages."""
+    head = (
+        "| Labelled messages | "
+        + " | ".join(
+            f"{name} ({'default' if s == 'default' else 'tuned'})"
+            for name in ("English tweets", "Multilingual tweets")
+            for s in ("default", "tuned")
+        )
+        + " |"
+    )
+    rows = [head, "|---|" + "---|" * 4]
+    tracks = [budget["tracks"]["humaid"], budget["tracks"]["crisisbench_ml"]]
+    sizes = sorted({int(n) for t in tracks for n in t["settings"]["tuned"]["budgets"]})
+    for n in sizes:
+        cells = []
+        for t in tracks:
+            for setting in ("default", "tuned"):
+                b = t["settings"][setting]["budgets"].get(str(n))
+                if b is None:
+                    cells.append("—")
+                    continue
+                wins = f"{b['beats']['laya']}/{len(b['draws'])}"
+                mark = f" **beats {wins}**" if b["beats"]["laya"] else ""
+                cells.append(f"{b['mean_macro_f1']:.2f}{mark}")
+        label = (
+            f"{n:,}" if n not in (tracks[0]["n_dev"], tracks[1]["n_dev"]) else f"{n:,} (all dev)"
+        )
+        rows.append(f"| {label} | " + " | ".join(cells) + " |")
+    zs = [f"{t['laya_macro_f1']['laya']:.2f}" for t in tracks]
+    ft = [f"{t['laya_macro_f1']['laya-ft']:.2f}" for t in tracks]
+    rows.append(f"| *Laya out of the box* | *{zs[0]}* | | *{zs[1]}* | |")
+    rows.append(f"| *Laya fine-tuned* | *{ft[0]}* | | *{ft[1]}* | |")
+    return "\n".join(rows)
+
+
+def first_win(budget: dict, run: str, share: float = 1.0) -> str:
+    """Smallest N at which every tuned draw beats Laya out of the box."""
+    b = budget["tracks"][run]["settings"]["tuned"]["budgets"]
+    for n in sorted(b, key=int):
+        if b[n]["beats"]["laya"] >= share * len(b[n]["draws"]):
+            return f"{int(n):,}"
+    return "none"
+
+
+def vs_finetuned(budget: dict) -> str:
+    """How the tuned classifier fares against the fine-tuned Laya on all test messages."""
+    draws = [
+        (int(n), b)
+        for t in budget["tracks"].values()
+        for n, b in t["settings"]["tuned"]["budgets"].items()
+    ]
+    if any(b["beats"]["laya-ft"] for _, b in draws):
+        return "Some draws beat the fine-tuned Laya (see the results file)."
+    full = [b for n, b in draws if n in {t["n_dev"] for t in budget["tracks"].values()}]
+    lost = sum(b["loses"]["laya-ft"] for b in full)
+    return (
+        "No draw at any budget beats the fine-tuned Laya; trained on all of dev, the classifier "
+        f"is significantly behind it on {lost} of {len(full)} tracks."
+    )
+
+
 def facts(scores, gating, ft) -> dict:
     g = gating["runs"]["humaid"]["systems"]
     res = scores["results"]
     q = g["qwen3-4b"]["at"]["0.95"]["naive"]
     lf = g["laya-ft"]["at"]["0.95"]
-    paired = scores["paired"]["humaid"]["laya-ft - e5lr"]
     return {
+        **standing(res, scores["paired"]),
         "ft_sent": pct(lf["coverage_point"]),
         "ft_right": pct(lf["accuracy_covered"], 1),
         "ft_person": pct(1 - lf["coverage_point"]),
@@ -112,7 +177,6 @@ def facts(scores, gating, ft) -> dict:
         "ft_examples": f"{ft['train_examples']:,}",
         "zs_f1": f"{res['humaid']['laya']['macro_f1']['value']:.2f}",
         "ft_f1": f"{res['humaid']['laya-ft']['macro_f1']['value']:.2f}",
-        "ft_vs_e5": f"{paired['value']:+.3f} [{paired['lo']:+.3f}, {paired['hi']:+.3f}]",
         "haiti_zs": f"{res['haiti_original']['laya']['mean_auc']['value']:.2f}",
         "haiti_mt": f"{res['haiti_mt']['laya']['mean_auc']['value']:.2f}",
         "haiti_ft": f"{res['haiti_original']['laya-ft']['mean_auc']['value']:.2f}",
@@ -238,7 +302,14 @@ def desk_svg(demo, gating) -> str:
 def build() -> tuple[str, str]:
     scores, gating, ft = load("t05_test.json"), load("t06_gating.json"), load("t07_finetune.json")
     demo = load("demo_messages.json")
+    budget = load("t05c_label_budget.json")
     fill = {
+        "budget_table": budget_table(budget),
+        "win_en": first_win(budget, "humaid"),
+        "win_ml": first_win(budget, "crisisbench_ml"),
+        "n_test_en": f"{budget['tracks']['humaid']['n_test']:,}",
+        "n_test_ml": f"{budget['tracks']['crisisbench_ml']['n_test']:,}",
+        "vs_ft": vs_finetuned(budget),
         "desk_table": desk_table(scores, gating),
         "all_runs_table": all_runs_table(scores),
         "creole_table": creole_table(scores),

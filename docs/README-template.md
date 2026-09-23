@@ -19,10 +19,10 @@ real test tweets are sorted live from recorded answers. **Model:**
 - **Chat models are sure of almost everything.** Trusting Qwen3-4B's own "≥ 95% sure" sends
   {{qwen_sent}} of tweets on their own, but only {{qwen_right}} are right: about
   {{qwen_wrong_per_100}} wrong answers per 100 tweets that nobody checks.
-- **Out of the box, Laya was the weakest of five systems** (macro-F1 {{zs_f1}}). Fine-tuned on
-  {{ft_examples}} examples from earlier disasters, it is the best on the later ones
-  ({{ft_f1}}; {{ft_vs_e5}} over a trained e5 classifier, paired on the same tweets), and its
-  confidence is the most trustworthy (lowest calibration error).
+- **Out of the box, Laya was {{zs_standing}}** (macro-F1 {{zs_f1}}). Fine-tuned on
+  {{ft_examples}} examples from earlier disasters, it is **{{ft_standing}}** on the later ones
+  ({{ft_f1}}; difference {{ft_vs_rival}}, paired on the same 8,000 tweets), and
+  {{ft_trust}}.
 - **It didn't read Haitian Creole well:** mean AUC {{haiti_zs}} on the original SMS. Translating
   first (NLLB-600M) raises it to {{haiti_mt}}; fine-tuning, to {{haiti_ft}}.
 - **The safety line can slip on new events:** on the multilingual tweets, the line chosen on
@@ -50,8 +50,23 @@ sets). Bold marks the best score in each row. Intervals and paired differences a
 
 - **Laya, out of the box**: [convaiinnovations/laya](https://huggingface.co/convaiinnovations/laya), no training on this task, with question wording and checkpoint chosen on dev.
 - **Laya, fine-tuned**: one multilingual checkpoint trained on every track's dev split at once ([`scripts/finetune_laya.py`](scripts/finetune_laya.py)).
-- **e5 + LR**: multilingual-e5-base embeddings and logistic regression, trained on the same dev data.
+- **e5 + LR**: multilingual-e5-base embeddings and logistic regression, trained on the same dev data; regularisation and class weighting chosen by cross-validation on dev.
 - **Qwen3-4B, Gemma-3-4B**: zero-shot, asked Laya's exact questions and read out from next-token probabilities, so nothing is parsed.
+
+## How many labels is Laya worth?
+
+Laya out of the box needs no labels. A small classifier (e5 + logistic regression) needs some.
+Here it is trained on N random dev messages (5 draws each) and scored on **every** test
+message ({{n_test_en}} English, {{n_test_ml}} multilingual); "beats" counts the draws whose paired 95% interval against Laya out of the box is
+entirely above 0. "Tuned" uses the setting chosen by cross-validation on the full dev split,
+which slightly favours the small budgets.
+
+{{budget_table}}
+
+With tuned settings, every draw beats Laya out of the box from **{{win_en}}** labelled English
+tweets and **{{win_ml}}** multilingual ones. {{vs_ft}} With scikit-learn's default settings the classifier needs thousands, which is
+why the first version of this comparison under-rated it; the baseline is now tuned on dev
+([`trained.py`](src/crisis_triage/trained.py)).
 
 ## Languages: the Haitian Creole SMS
 

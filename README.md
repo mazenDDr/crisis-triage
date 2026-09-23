@@ -19,10 +19,10 @@ real test tweets are sorted live from recorded answers. **Model:**
 - **Chat models are sure of almost everything.** Trusting Qwen3-4B's own "≥ 95% sure" sends
   95% of tweets on their own, but only 72% are right: about
   26 wrong answers per 100 tweets that nobody checks.
-- **Out of the box, Laya was the weakest of five systems** (macro-F1 0.57). Fine-tuned on
-  40,737 examples from earlier disasters, it is the best on the later ones
-  (0.72; +0.038 [+0.024, +0.051] over a trained e5 classifier, paired on the same tweets), and its
-  confidence is the most trustworthy (lowest calibration error).
+- **Out of the box, Laya was the weakest of five** (macro-F1 0.57). Fine-tuned on
+  40,737 examples from earlier disasters, it is **tied for the best with a tuned e5 classifier** on the later ones
+  (0.72; difference +0.009 [-0.004, +0.021], paired on the same 8,000 tweets), and
+  its calibration error is the lowest (0.010; next: a tuned e5 classifier, 0.012).
 - **It didn't read Haitian Creole well:** mean AUC 0.67 on the original SMS. Translating
   first (NLLB-600M) raises it to 0.77; fine-tuning, to 0.84.
 - **The safety line can slip on new events:** on the multilingual tweets, the line chosen on
@@ -38,7 +38,7 @@ at least 95% sure. Time is one message at a time on an RTX 5060 Ti.
 | | Category score (macro-F1) | Sent on its own at the 95% target | …right among those | Trust its own “≥ 95% sure” | …right among those | Time per message |
 |---|---|---|---|---|---|---|
 | **Laya, fine-tuned** | 0.725 [0.712, 0.737] | 38% | 94.9% | 22% | 98.4% | 46–53 ms |
-| e5 + LR (trained) | 0.687 [0.675, 0.700] | 32% | 95.2% | 7% | 99.5% | 18 ms |
+| e5 + LR (trained, tuned on dev) | 0.716 [0.703, 0.728] | 33% | 95.4% | 22% | 97.4% | 6 ms |
 | Qwen3-4B | 0.642 [0.630, 0.653] | 0% | — | 95% | 72.2% | 114 ms |
 | Gemma-3-4B | 0.597 [0.584, 0.609] | 0% | — | 96% | 66.7% | 126 ms |
 | Laya, out of the box | 0.568 [0.556, 0.579] | 6% | 80.5% | 0% | — | 24 ms |
@@ -52,19 +52,48 @@ Same test messages for every system (the LLMs answered a fixed random sample of 
 sets). Bold marks the best score in each row. Intervals and paired differences are in
 [`results/t05_test.json`](results/t05_test.json).
 
-| Test set | n | Metric | **Laya, fine-tuned** | e5 + LR (trained) | Qwen3-4B | Gemma-3-4B | Laya, out of the box |
+| Test set | n | Metric | **Laya, fine-tuned** | e5 + LR (trained, tuned on dev) | Qwen3-4B | Gemma-3-4B | Laya, out of the box |
 |---|---|---|---|---|---|---|---|
-| Haiti SMS, Creole/French original | 996 | mean AUC | 0.838 | **0.844** | 0.762 | 0.813 | 0.669 |
+| Haiti SMS, Creole/French original | 996 | mean AUC | 0.838 | **0.873** | 0.762 | 0.813 | 0.669 |
 | Haiti SMS, NLLB translation | 996 | mean AUC | 0.844 | — | 0.822 | **0.851** | 0.772 |
 | Haiti SMS, human translation | 996 | mean AUC | 0.905 | — | 0.879 | **0.927** | 0.849 |
-| HumAID tweets, 2018–19 disasters | 8,000 | macro-F1 | **0.725** | 0.687 | 0.642 | 0.597 | 0.568 |
-| CrisisBench tweets, es/fr/it/pt/tl | 5,534 | macro-F1 | **0.453** | 0.289 | 0.426 | 0.387 | 0.280 |
-| HumSet report excerpts | 3,000 | mean AUC | 0.934 | **0.954** | 0.932 | 0.910 | 0.691 |
+| HumAID tweets, 2018–19 disasters | 8,000 | macro-F1 | **0.725** | 0.716 | 0.642 | 0.597 | 0.568 |
+| CrisisBench tweets, es/fr/it/pt/tl | 5,534 | macro-F1 | **0.453** | 0.410 | 0.426 | 0.387 | 0.280 |
+| HumSet report excerpts | 3,000 | mean AUC | 0.934 | **0.956** | 0.932 | 0.910 | 0.691 |
 
 - **Laya, out of the box**: [convaiinnovations/laya](https://huggingface.co/convaiinnovations/laya), no training on this task, with question wording and checkpoint chosen on dev.
 - **Laya, fine-tuned**: one multilingual checkpoint trained on every track's dev split at once ([`scripts/finetune_laya.py`](scripts/finetune_laya.py)).
-- **e5 + LR**: multilingual-e5-base embeddings and logistic regression, trained on the same dev data.
+- **e5 + LR**: multilingual-e5-base embeddings and logistic regression, trained on the same dev data; regularisation and class weighting chosen by cross-validation on dev.
 - **Qwen3-4B, Gemma-3-4B**: zero-shot, asked Laya's exact questions and read out from next-token probabilities, so nothing is parsed.
+
+## How many labels is Laya worth?
+
+Laya out of the box needs no labels. A small classifier (e5 + logistic regression) needs some.
+Here it is trained on N random dev messages (5 draws each) and scored on **every** test
+message (39,265 English, 5,534 multilingual); "beats" counts the draws whose paired 95% interval against Laya out of the box is
+entirely above 0. "Tuned" uses the setting chosen by cross-validation on the full dev split,
+which slightly favours the small budgets.
+
+| Labelled messages | English tweets (default) | English tweets (tuned) | Multilingual tweets (default) | Multilingual tweets (tuned) |
+|---|---|---|---|---|
+| 25 | 0.09 | 0.18 | 0.07 | 0.10 |
+| 50 | 0.09 | 0.22 | 0.07 | 0.17 |
+| 100 | 0.14 | 0.35 | 0.07 | 0.23 |
+| 200 | 0.16 | 0.44 | 0.07 | 0.29 **beats 2/5** |
+| 400 | 0.29 | 0.56 **beats 2/5** | 0.09 | 0.35 **beats 5/5** |
+| 800 | 0.37 | 0.60 **beats 4/5** | 0.10 | 0.37 **beats 5/5** |
+| 1,600 | 0.47 | 0.65 **beats 5/5** | 0.21 | 0.39 **beats 5/5** |
+| 2,737 (all dev) | — | — | 0.29 | 0.41 **beats 1/1** |
+| 3,200 | 0.58 **beats 3/5** | 0.68 **beats 5/5** | — | — |
+| 6,400 | 0.63 **beats 5/5** | 0.70 **beats 5/5** | — | — |
+| 37,211 (all dev) | 0.70 **beats 1/1** | 0.72 **beats 1/1** | — | — |
+| *Laya out of the box* | *0.56* | | *0.28* | |
+| *Laya fine-tuned* | *0.73* | | *0.45* | |
+
+With tuned settings, every draw beats Laya out of the box from **1,600** labelled English
+tweets and **400** multilingual ones. No draw at any budget beats the fine-tuned Laya; trained on all of dev, the classifier is significantly behind it on 2 of 2 tracks. With scikit-learn's default settings the classifier needs thousands, which is
+why the first version of this comparison under-rated it; the baseline is now tuned on dev
+([`trained.py`](src/crisis_triage/trained.py)).
 
 ## Languages: the Haitian Creole SMS
 
