@@ -8,10 +8,16 @@ fine-tuning (t07_finetune.json) and data sizes (data_summary.json).
 import json
 from pathlib import Path
 
+from crisis_triage.standing import standing
+
 RESULTS = Path("results")
 SYSTEMS = [
     ("laya-ft", "Laya, fine-tuned", "Laya taught for 17 minutes on past disasters"),
-    ("e5lr", "Small classifier", "e5 embeddings + logistic regression, trained on past disasters"),
+    (
+        "e5lr",
+        "Small classifier",
+        "e5 embeddings + logistic regression, trained on past disasters and tuned on dev",
+    ),
     ("qwen3-4b", "Qwen3-4B (LLM)", "a 4-billion-parameter chat model, asked the same questions"),
     ("gemma3-4b", "Gemma-3-4B (LLM)", "a 4-billion-parameter chat model, asked the same questions"),
     ("laya", "Laya, out of the box", "Laya as released, no training on this task"),
@@ -122,6 +128,7 @@ def build() -> str:
             "examples": ft["train_examples"],
         },
         "sizes": {k: v["dev"]["rows"] + v["test"]["rows"] for k, v in sizes.items()},
+        "standing": standing(res, scores["paired"]),
     }
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     template = Path("site/index-template.html").read_text()

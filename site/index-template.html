@@ -574,11 +574,11 @@ function inside(animate) {
 function practice(animate) {
   const z = H.systems.laya, f = FT;
   $("practice-h").textContent = `${D.finetune.minutes} minutes of practice.`;
-  $("practice-say").textContent = `Out of the box, Laya was the weakest of five. Then it studied ${fmt(D.finetune.examples)} labelled messages from earlier disasters on one gaming GPU.`;
+  $("practice-say").textContent = `Out of the box, Laya was ${D.standing.zs_standing}. Then it studied ${fmt(D.finetune.examples)} labelled messages from earlier disasters on one gaming GPU.`;
   const ft = D.speed["laya-ft"], q = D.speed["qwen3-4b"];
   const perHour = (s) => fmt(Math.round(1e6 / s.gpu_hours_per_1m / 1000) * 1000);
   const swaps = [
-    [`${z.macro_f1.toFixed(2)}`, `${f.macro_f1.toFixed(2)}`, "category score on new disasters: now the best of five"],
+    [`${z.macro_f1.toFixed(2)}`, `${f.macro_f1.toFixed(2)}`, `category score on new disasters: ${D.standing.ft_standing}`],
     [`${pct(z["0.95"].coverage)}`, `${pct(f["0.95"].coverage)}`, "tweets it can safely send on its own"],
     [null, `${perHour(ft)}/h`, `messages one GPU reads, one at a time. A 4B chat AI: ${perHour(q)}/h`],
   ];

@@ -124,7 +124,7 @@ Calibration error (ECE, lower is better):
 {ece_table(res)}
 
 Baselines: e5 + LR is multilingual-e5-base embeddings with logistic regression, trained on the
-same dev data. Qwen3-4B-Instruct-2507 and Gemma-3-4B-it are zero-shot, asked the same
+same dev data, with its regularisation chosen by cross-validation on dev. Qwen3-4B-Instruct-2507 and Gemma-3-4B-it are zero-shot, asked the same
 questions and read out from next-token probabilities.
 
 ## Training
