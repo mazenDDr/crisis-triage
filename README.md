@@ -41,8 +41,9 @@ Not used: Kawarith (Arabic crisis tweets) ships tweet IDs only, without text.
 Laya zero-shot on the test splits, with every setting chosen on dev:
 [`results/t04_test.json`](results/t04_test.json) (scores with 95% bootstrap intervals and
 calibration) and [`results/t04_latency.json`](results/t04_latency.json) (one message at a time
-on an RTX 5060 Ti and an M4 Pro Mac). The comparison with LLM baselines comes next; the README
-tables are generated from these files once it is done.
+on an RTX 5060 Ti and an M4 Pro Mac). Laya against two local LLMs and a small trained
+classifier, on the same test messages: [`results/t05_test.json`](results/t05_test.json). The
+README tables will be generated from these files.
 
 ## Licences
 
@@ -51,6 +52,9 @@ tables are generated from these files once it is done.
 | Code | MIT |
 | [Laya](https://github.com/NandhaKishorM/laya) | Apache-2.0 |
 | [NLLB-200 distilled 600M / 1.3B](https://huggingface.co/facebook/nllb-200-distilled-600M) (translation of Creole/French SMS) | CC BY-NC 4.0 |
+| [Qwen3-4B-Instruct-2507](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) (baseline) | Apache-2.0 |
+| [Gemma 3 4B IT](https://huggingface.co/google/gemma-3-4b-it) (baseline) | Gemma Terms of Use |
+| [multilingual-e5-base](https://huggingface.co/intfloat/multilingual-e5-base) (baseline) | MIT |
 | [HumAID](https://huggingface.co/datasets/QCRI/HumAID-events) | CC BY-NC-SA 4.0 |
 | [CrisisBench](https://huggingface.co/datasets/QCRI/CrisisBench-all-lang) | CC BY-NC-SA 4.0 |
 | [HumSet](https://huggingface.co/datasets/nlp-thedeep/humset) | Apache-2.0 |
